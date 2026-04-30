@@ -2,7 +2,8 @@
 
 import { cookies } from "next/headers";
 import type { z } from "zod";
-import { AuthService, DUMMY_USERS } from "@/lib/auth";
+import { USERS } from "@/constants/users";
+import { AuthService } from "@/lib/auth";
 import { loginSchema } from "./schema";
 
 export type LoginDTO = z.infer<typeof loginSchema>;
@@ -15,7 +16,7 @@ export async function loginAction(data: LoginDTO) {
 
   const { email, password } = parsed.data;
 
-  const user = DUMMY_USERS.find((u) => u.email === email);
+  const user = USERS.find((u) => u.email === email);
   if (!user || user.password !== password) {
     return { error: "Email atau password salah" };
   }
