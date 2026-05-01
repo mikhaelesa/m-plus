@@ -33,13 +33,6 @@ export function VehicleMakesToolbar({
 
   return (
     <div className="flex max-md:flex-col md:items-center justify-between gap-2">
-      <div className="space-y-0.5">
-        <h2 className="text-sm font-semibold">Vehicle Makes</h2>
-        <p className="text-xs text-muted-foreground">
-          Data sourced from NHTSA VPIC API
-        </p>
-      </div>
-
       <div className="flex items-center gap-2">
         <Select value={vehicleType} onValueChange={onTypeChange}>
           <SelectTrigger className="w-[180px]">

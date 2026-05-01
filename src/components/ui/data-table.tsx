@@ -23,7 +23,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-// RULE: Initial state constants at module scope — never inline [] or {} inside component
 const INITIAL_SORTING: SortingState = [];
 const INITIAL_COLUMN_FILTERS: ColumnFiltersState = [];
 const INITIAL_PAGINATION = { pageIndex: 0, pageSize: 10 };
