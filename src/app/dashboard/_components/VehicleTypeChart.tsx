@@ -1,9 +1,7 @@
 "use client";
 
-import { useQueries } from "@tanstack/react-query";
 import Link from "next/link";
-import { useMemo } from "react";
-import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,57 +12,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PATHS } from "@/constants/paths";
-import { VehicleMakesService } from "@/services/vehicleMakes";
-import {
-  VEHICLE_TYPE_LABELS,
-  VEHICLE_TYPE_OPTIONS,
-  VehicleMakesQueryKey,
-} from "@/types/vehicleMake";
-import type { VehicleTypeDataPoint } from "@/types/vehicleTypeDistribution";
+import { useVehicleTypeDistribution } from "../_hooks/useVehicleTypeDistribution";
+import { RoleGuard } from "@/components/molecules/RoleGuard";
+import { UserRole } from "@/types/auth";
 
 export function VehicleTypeChart() {
-  const results = useQueries({
-    queries: VEHICLE_TYPE_OPTIONS.map((type) => ({
-      queryKey: [VehicleMakesQueryKey.VehicleMakes, type],
-      queryFn: () => VehicleMakesService.getMakes(type),
-    })),
-  });
-
-  const isPending = results.some((r) => r.isPending);
-  const isError = results.some((r) => r.isError);
-
-  const { chartData, chartConfig } = useMemo(() => {
-    if (isPending)
-      return { chartData: [], chartConfig: { count: { label: "Merek" } } };
-
-    const points: VehicleTypeDataPoint[] = VEHICLE_TYPE_OPTIONS.map(
-      (type, i) => ({
-        typeKey: type,
-        typeName: VEHICLE_TYPE_LABELS[type],
-        count: results[i]?.data?.Count ?? 0,
-        fill: `var(--color-${type})`,
-      }),
-    );
-
-    points.sort((a, b) => b.count - a.count);
-
-    const config: ChartConfig = { count: { label: "Merek" } };
-    points.forEach((point, index) => {
-      config[point.typeKey] = {
-        label: point.typeName,
-        color: `var(--chart-${(index % 5) + 1})`,
-      };
-    });
-
-    return { chartData: points, chartConfig: config };
-  }, [results, isPending]);
+  const { chartData, chartConfig, isPending, isError } =
+    useVehicleTypeDistribution();
 
   return (
     <Card className="flex flex-col">
@@ -107,9 +67,11 @@ export function VehicleTypeChart() {
         )}
       </CardContent>
       <CardFooter>
-        <Link href={PATHS.vehicleMakes}>
-          <Button variant="outline">Lihat Selengkapnya</Button>
-        </Link>
+        <RoleGuard allowedRoles={[UserRole.ADMIN]}>
+          <Link href={PATHS.vehicleMakes}>
+            <Button variant="outline">Lihat Selengkapnya</Button>
+          </Link>
+        </RoleGuard>
       </CardFooter>
     </Card>
   );

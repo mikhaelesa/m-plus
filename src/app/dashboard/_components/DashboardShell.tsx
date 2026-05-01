@@ -30,8 +30,10 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { SIDEBAR_DATA } from "@/constants/sidebar";
+import { useRole } from "@/providers/RoleProvider";
 
-const DashboardShell = ({ children }: PropsWithChildren) => {
+export const DashboardShell = ({ children }: PropsWithChildren) => {
+  const userRole = useRole();
   const pathname = usePathname();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -43,12 +45,23 @@ const DashboardShell = ({ children }: PropsWithChildren) => {
       router.refresh();
     });
   };
+
+  const filteredNavGroups = SIDEBAR_DATA.navGroups
+    .map((group) => {
+      const filteredItems = group.items.filter((item) => {
+        if (!item.allowedRoles) return true;
+        return userRole && item.allowedRoles.includes(userRole);
+      });
+      return { ...group, items: filteredItems };
+    })
+    .filter((group) => group.items.length > 0);
+
   return (
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>M+ Software</SidebarHeader>
         <SidebarContent>
-          {SIDEBAR_DATA.navGroups.map((group) => (
+          {filteredNavGroups.map((group) => (
             <SidebarGroup key={group.title}>
               <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
               <SidebarGroupContent>
@@ -114,5 +127,3 @@ const DashboardShell = ({ children }: PropsWithChildren) => {
     </SidebarProvider>
   );
 };
-
-export default DashboardShell;

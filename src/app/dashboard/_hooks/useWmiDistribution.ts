@@ -75,7 +75,7 @@ export function useWmiDistribution(
         count: othersCount,
         fill: "var(--color-others)",
       });
-      chartConfig["others"] = {
+      chartConfig.others = {
         label: "Lainnya",
         color: "var(--muted-foreground)",
       };

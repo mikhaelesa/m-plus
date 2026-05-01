@@ -6,7 +6,9 @@ const MANUFACTURERS_PER_PAGE = 100;
 
 export const StatsService = {
   async getTotalMakes(): Promise<number> {
-    const res = await fetch(`${VPIC_BASE_URL}/GetAllMakes?format=json`);
+    const res = await fetch(`${VPIC_BASE_URL}/GetAllMakes?format=json`, {
+      next: { revalidate: 86400 },
+    });
     if (!res.ok) throw new Error(`API Error: ${res.status} ${res.statusText}`);
     const data = (await res.json()) as VpicApiResponse<unknown>;
     return data.Count;
@@ -20,6 +22,7 @@ export const StatsService = {
   async getTotalManufacturers(): Promise<number> {
     const res = await fetch(
       `${VPIC_BASE_URL}/getallmanufacturers?format=json&page=${LAST_MANUFACTURERS_PAGE}`,
+      { next: { revalidate: 86400 } },
     );
     if (!res.ok) throw new Error(`API Error: ${res.status} ${res.statusText}`);
     const data = (await res.json()) as VpicApiResponse<unknown>;

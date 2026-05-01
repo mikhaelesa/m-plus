@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Label, Pie, PieChart } from "recharts";
+import { useWmiDistribution } from "@/app/dashboard/_hooks/useWmiDistribution";
 import { VehicleTypeFilter } from "@/components/molecules/VehicleTypeFilter";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -17,8 +20,10 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useWmiDistribution } from "@/hooks/query/useWmiDistribution";
+import { PATHS } from "@/constants/paths";
 import { VehicleType } from "@/types/vehicleMake";
+import { RoleGuard } from "@/components/molecules/RoleGuard";
+import { UserRole } from "@/types/auth";
 
 export function ManufacturingChart() {
   const [vehicleType, setVehicleType] = useState<VehicleType>(VehicleType.Car);
@@ -95,16 +100,23 @@ export function ManufacturingChart() {
         )}
       </CardContent>
       {!isPending && chartData.length > 0 && (
-        <CardFooter className="flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground pt-4">
-          {chartData.map((item) => (
-            <div key={item.key} className="flex items-center gap-2">
-              <div
-                className="h-3 w-3 shrink-0 rounded-[2px]"
-                style={{ backgroundColor: chartConfig[item.key]?.color }}
-              />
-              <span className="whitespace-nowrap">{item.country}</span>
-            </div>
-          ))}
+        <CardFooter className="flex flex-col gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            {chartData.map((item) => (
+              <div key={item.key} className="flex items-center gap-2">
+                <div
+                  className="h-3 w-3 shrink-0 rounded-[2px]"
+                  style={{ backgroundColor: chartConfig[item.key]?.color }}
+                />
+                <span className="whitespace-nowrap">{item.country}</span>
+              </div>
+            ))}
+          </div>
+          <RoleGuard allowedRoles={[UserRole.ADMIN]}>
+            <Link className="self-start" href={PATHS.wmi}>
+              <Button variant="outline">Lihat Selengkapnya</Button>
+            </Link>
+          </RoleGuard>
         </CardFooter>
       )}
     </Card>
