@@ -4,27 +4,31 @@ import type { VehicleType } from "@/types/vehicleMake";
 import { VehicleModelsQueryKey } from "@/types/vehicleModel";
 
 interface UseVehicleModelsParams {
-  makeId:       number | null;
+  makeId: number | null;
   vehicleType?: VehicleType;
+  modelYear?: string;
 }
 
 export function useVehicleModels({
   makeId,
   vehicleType,
+  modelYear,
 }: UseVehicleModelsParams) {
   return useQuery({
-    // React Query creates separate cache entries for each unique key.
-    // vehicleType=undefined vs vehicleType="truck" are distinct caches.
-    queryKey: [VehicleModelsQueryKey.VehicleModels, makeId, vehicleType],
+    queryKey: [
+      VehicleModelsQueryKey.VehicleModels,
+      makeId,
+      vehicleType,
+      modelYear,
+    ],
 
-    queryFn: () => {
-      if (vehicleType) {
-        return VehicleModelsService.getModelsByMakeIdAndType(makeId!, vehicleType);
-      }
-      return VehicleModelsService.getModelsByMakeId(makeId!);
-    },
+    queryFn: () =>
+      VehicleModelsService.getModels({
+        makeId: makeId!,
+        vehicleType,
+        modelYear,
+      }),
 
-    // Query only runs when makeId is available
     enabled: !!makeId,
   });
 }
