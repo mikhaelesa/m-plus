@@ -1,3 +1,5 @@
+import type { VpicApiResponse } from "./vpic";
+
 export enum VehicleType {
   Car = "car",
   Invalid = "invalid",
@@ -20,13 +22,6 @@ export interface VehicleMake {
   MakeName: string;
   VehicleTypeId: number;
   VehicleTypeName: string;
-}
-
-export interface VpicApiResponse<T> {
-  Count: number;
-  Message: string;
-  SearchCriteria: string;
-  Results: T[];
 }
 
 export type VehicleMakesResponse = VpicApiResponse<VehicleMake>;

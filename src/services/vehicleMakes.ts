@@ -1,7 +1,7 @@
-import type { VehicleMakesResponse } from "@/types/vpic";
-import { VehicleType } from "@/types/vpic";
+import type { VehicleMakesResponse } from "@/types/vehicleMake";
+import { VehicleType } from "@/types/vehicleMake";
 
-const VPIC_BASE_URL = "https://vpic.nhtsa.dot.gov/api/vehicles";
+const VPIC_BASE_URL = process.env.NEXT_PUBLIC_VPIC_BASE_URL;
 
 const makesUrl = (type: VehicleType) =>
   `${VPIC_BASE_URL}/GetMakesForVehicleType/${type}?format=json`;

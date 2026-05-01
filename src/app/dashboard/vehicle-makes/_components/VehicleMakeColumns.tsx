@@ -3,8 +3,14 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { VehicleMake } from "@/types/vpic";
-import { VehicleMakeColumnId } from "@/types/vpic";
+import type { VehicleMake } from "@/types/vehicleMake";
+import { VehicleMakeColumnId } from "@/types/vehicleMake";
+
+declare module "@tanstack/react-table" {
+  interface TableMeta<TData> {
+    onViewModels?: (row: TData) => void;
+  }
+}
 
 export const VehicleMakeColumns: ColumnDef<VehicleMake>[] = [
   {
@@ -40,5 +46,19 @@ export const VehicleMakeColumns: ColumnDef<VehicleMake>[] = [
     accessorKey: VehicleMakeColumnId.VehicleTypeName,
     header: "Vehicle Type",
     enableSorting: false,
+  },
+  {
+    id: "actions",
+    header: "Actions",
+    enableSorting: false,
+    cell: ({ row, table }) => (
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => table.options.meta?.onViewModels?.(row.original)}
+      >
+        View Models
+      </Button>
+    ),
   },
 ];
