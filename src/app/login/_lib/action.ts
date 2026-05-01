@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import type { z } from "zod";
 import { USERS } from "@/constants/users";
-import { AuthService } from "@/lib/auth";
+import { AuthService } from "@/services/auth";
 import { loginSchema } from "./schema";
 
 export type LoginDTO = z.infer<typeof loginSchema>;

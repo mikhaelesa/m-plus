@@ -21,8 +21,8 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { type LoginDTO, loginAction } from "../action";
-import { loginSchema } from "../schema";
+import { loginAction } from "../_lib/action";
+import { type LoginDTO, loginSchema } from "../_lib/schema";
 
 const LoginForm = () => {
   const router = useRouter();
