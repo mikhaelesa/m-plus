@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { loginAction } from "../_lib/action";
 import { type LoginDTO, loginSchema } from "../_lib/schema";
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -122,5 +122,3 @@ const LoginForm = () => {
     </Card>
   );
 };
-
-export default LoginForm;

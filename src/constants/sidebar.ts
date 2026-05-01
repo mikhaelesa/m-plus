@@ -1,3 +1,4 @@
+import { UserRole } from "@/types/auth";
 import { PATHS } from "./paths";
 
 export const SIDEBAR_DATA = {
@@ -12,10 +13,12 @@ export const SIDEBAR_DATA = {
         {
           label: "Vehicle Makes",
           href: PATHS.vehicleMakes,
+          allowedRoles: [UserRole.ADMIN],
         },
         {
           label: "WMI",
           href: PATHS.wmi,
+          allowedRoles: [UserRole.ADMIN],
         },
       ],
     },
