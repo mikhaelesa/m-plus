@@ -17,6 +17,6 @@ export const SIDEBAR_DATA = {
     },
   ],
   footerGroup: {
-    items: [{ label: "Logout", href: "#" }],
+    items: [],
   },
 };
