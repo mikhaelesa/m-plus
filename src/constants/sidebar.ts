@@ -1,3 +1,5 @@
+import { PATHS } from "./paths";
+
 export const SIDEBAR_DATA = {
   navGroups: [
     {
@@ -5,8 +7,11 @@ export const SIDEBAR_DATA = {
       items: [
         {
           label: "Dashboard",
-          href: "/dashboard",
-          isActive: true,
+          href: PATHS.dashboard,
+        },
+        {
+          label: "Vehicle Makes",
+          href: PATHS.vehicleMakes,
         },
       ],
     },

@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import {
   Breadcrumb,
@@ -29,6 +30,7 @@ import {
 import { SIDEBAR_DATA } from "@/constants/sidebar";
 
 const DashboardShell = ({ children }: PropsWithChildren) => {
+  const pathname = usePathname();
   return (
     <SidebarProvider>
       <Sidebar>
@@ -41,7 +43,10 @@ const DashboardShell = ({ children }: PropsWithChildren) => {
                 <SidebarMenu>
                   {group.items.map((item) => (
                     <SidebarMenuItem key={item.label}>
-                      <SidebarMenuButton asChild isActive={item.isActive}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={item.href === pathname}
+                      >
                         <a href={item.href}>{item.label}</a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

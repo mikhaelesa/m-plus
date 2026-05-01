@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { AuthService } from "@/lib/auth";
+import { AuthService } from "@/services/auth";
 import { PATHS } from "./constants/paths";
 
 export async function proxy(request: NextRequest) {
