@@ -1,8 +1,10 @@
 "use client";
 
+import { Download } from "lucide-react";
 import { useState } from "react";
 import { VehicleTypeFilter } from "@/components/molecules/VehicleTypeFilter";
 import { YearPicker } from "@/components/molecules/YearPicker";
+import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import {
   Sheet,
@@ -13,6 +15,8 @@ import {
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useVehicleModels } from "@/hooks/query/useVehicleModels";
+import { downloadCsv } from "@/lib/downloadCsv";
+import { VehicleModelsService } from "@/services/vehicleModels";
 import { VehicleType } from "@/types/vehicleMake";
 import { VehicleModelColumnId } from "@/types/vehicleModel";
 import { VehicleModelColumns } from "./VehicleModelColumns";
@@ -40,6 +44,16 @@ export function VehicleModelsSheet({
     setModelYear(undefined);
   }
 
+  function handleDownload() {
+    if (!makeId) return;
+    const url = VehicleModelsService.getCsvUrl({
+      makeId,
+      vehicleType,
+      modelYear,
+    });
+    downloadCsv(url);
+  }
+
   const { data, isPending, isError, error } = useVehicleModels({
     makeId,
     vehicleType,
@@ -62,6 +76,15 @@ export function VehicleModelsSheet({
               onValueChange={handleTypeChange}
             />
             <YearPicker selectedYear={modelYear} onYearChange={setModelYear} />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDownload}
+              disabled={!makeId}
+            >
+              <Download className="size-4" />
+              Download CSV
+            </Button>
           </div>
         </SheetHeader>
 

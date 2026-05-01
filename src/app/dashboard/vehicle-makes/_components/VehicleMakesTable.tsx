@@ -7,7 +7,6 @@ import { useVehicleMakes } from "@/hooks/query/useVehicleMakes";
 import type { VehicleMake } from "@/types/vehicleMake";
 import { VehicleMakeColumnId, VehicleType } from "@/types/vehicleMake";
 import { VehicleMakeColumns } from "./VehicleMakeColumns";
-import { VehicleMakesTableError } from "./VehicleMakesTableError";
 import { VehicleMakesToolbar } from "./VehicleMakesToolbar";
 import { VehicleModelsSheet } from "./VehicleModelsSheet";
 
@@ -41,13 +40,9 @@ function TableSkeleton() {
 }
 
 export function VehicleMakesTable() {
-  const [triggerError, setTriggerError] = useState(false);
   const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
   const [vehicleType, setVehicleType] = useState<VehicleType>(VehicleType.Car);
-  const { data, isPending, isError, error } = useVehicleMakes(
-    vehicleType,
-    triggerError,
-  );
+  const { data, isPending } = useVehicleMakes(vehicleType);
   const tableData = data?.Results ?? EMPTY_ARRAY;
 
   const handleViewModels = (make: VehicleMake) => setSelectedMake(make);

@@ -1,25 +1,25 @@
 import type { VpicApiResponse } from "./vpic";
 
 export enum VehicleType {
-  Car        = "car",
+  Car = "car",
   Motorcycle = "motorcycle",
-  Mpv        = "mpv",
-  Truck      = "truck",
-  Bus        = "bus",
-  Trailer    = "trailer",
+  Mpv = "mpv",
+  Truck = "truck",
+  Bus = "bus",
+  Trailer = "trailer",
   Incomplete = "incomplete",
-  Invalid    = "invalid",
+  Invalid = "invalid",
 }
 
 export const VEHICLE_TYPE_LABELS: Record<VehicleType, string> = {
-  [VehicleType.Car]:        "Car",
+  [VehicleType.Car]: "Car",
   [VehicleType.Motorcycle]: "Motorcycle",
-  [VehicleType.Mpv]:        "MPV",
-  [VehicleType.Truck]:      "Truck",
-  [VehicleType.Bus]:        "Bus",
-  [VehicleType.Trailer]:    "Trailer",
+  [VehicleType.Mpv]: "MPV",
+  [VehicleType.Truck]: "Truck",
+  [VehicleType.Bus]: "Bus",
+  [VehicleType.Trailer]: "Trailer",
   [VehicleType.Incomplete]: "Incomplete Vehicle",
-  [VehicleType.Invalid]:    "Invalid",
+  [VehicleType.Invalid]: "Invalid",
 };
 
 export const VEHICLE_TYPE_OPTIONS = [
