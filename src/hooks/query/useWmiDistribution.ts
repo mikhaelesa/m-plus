@@ -1,14 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import type { ChartConfig } from "@/components/ui/chart";
-import { WmiService } from "@/services/wmi";
+import { useWmis } from "@/hooks/query/useWmis";
 import type { VehicleType } from "@/types/vehicleMake";
-import {
-  type CountryDistribution,
-  type ValidWmiItem,
-  type WmiItem,
-  WmiQueryKey,
-} from "@/types/wmi";
+import type { CountryDistribution, ValidWmiItem, WmiItem } from "@/types/wmi";
 
 export interface WmiDistributionResult {
   chartData: CountryDistribution[];
@@ -23,10 +17,7 @@ const EMPTY_WMI_RESULTS: WmiItem[] = [];
 export function useWmiDistribution(
   vehicleType: VehicleType,
 ): WmiDistributionResult {
-  const { data, isPending, isError } = useQuery({
-    queryKey: [WmiQueryKey.WmiDistribution, vehicleType],
-    queryFn: () => WmiService.getWmis(vehicleType),
-  });
+  const { data, isPending, isError } = useWmis(vehicleType);
 
   const { chartData, chartConfig, totalWmis } = useMemo(() => {
     const results = data?.Results ?? EMPTY_WMI_RESULTS;
