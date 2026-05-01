@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { VehicleMakesService } from "@/services/vehicleMakes";
+import type { VehicleType } from "@/types/vehicleMake";
 import { VehicleMakesQueryKey } from "@/types/vehicleMake";
 
-const normalQueryOptions = {
-  queryKey: [VehicleMakesQueryKey.VehicleMakes],
-  queryFn: VehicleMakesService.getMakes,
-} as const;
+export function useVehicleMakes(
+  vehicleType: VehicleType,
+  triggerError: boolean,
+) {
+  const normalQuery = useQuery({
+    queryKey: [VehicleMakesQueryKey.VehicleMakes, vehicleType],
+    queryFn: () => VehicleMakesService.getMakes(vehicleType),
+  });
 
-export function useVehicleMakes(triggerError: boolean) {
-  const normalQuery = useQuery(normalQueryOptions);
   const errorQuery = useQuery({
     queryKey: [VehicleMakesQueryKey.VehicleMakesError],
     queryFn: VehicleMakesService.getMakesError,
