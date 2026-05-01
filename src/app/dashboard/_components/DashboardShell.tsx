@@ -38,13 +38,8 @@ const DashboardShell = ({ children }: PropsWithChildren) => {
 
   const handleLogout = () => {
     startTransition(async () => {
-      // 1. Eksekusi server action untuk menghapus cookie
       await logoutAction();
-
-      // 2. Arahkan kembali ke halaman login
       router.push("/login");
-
-      // 3. Bersihkan cache router agar middleware dan layout ter-refresh
       router.refresh();
     });
   };
