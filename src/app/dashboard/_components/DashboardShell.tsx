@@ -1,7 +1,8 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import type { PropsWithChildren } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { type PropsWithChildren, useTransition } from "react";
+import { logoutAction } from "@/app/dashboard/_lib/action";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +11,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
@@ -31,6 +33,21 @@ import { SIDEBAR_DATA } from "@/constants/sidebar";
 
 const DashboardShell = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const handleLogout = () => {
+    startTransition(async () => {
+      // 1. Eksekusi server action untuk menghapus cookie
+      await logoutAction();
+
+      // 2. Arahkan kembali ke halaman login
+      router.push("/login");
+
+      // 3. Bersihkan cache router agar middleware dan layout ter-refresh
+      router.refresh();
+    });
+  };
   return (
     <SidebarProvider>
       <Sidebar>
@@ -60,13 +77,18 @@ const DashboardShell = ({ children }: PropsWithChildren) => {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {SIDEBAR_DATA.footerGroup.items.map((item) => (
-                  <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.href}>{item.label}</a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleLogout}
+                      disabled={isPending}
+                    >
+                      Logout
+                    </Button>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
