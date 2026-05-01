@@ -22,5 +22,12 @@ export interface CountryDistribution {
 }
 
 export enum WmiQueryKey {
-  WmiDistribution = "wmiDistribution",
+  Wmis = "wmis",
+}
+
+export enum WmiColumnId {
+  WMI = "WMI",
+  Name = "Name",
+  Country = "Country",
+  VehicleType = "VehicleType",
 }

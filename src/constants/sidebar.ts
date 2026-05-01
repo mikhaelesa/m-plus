@@ -13,6 +13,10 @@ export const SIDEBAR_DATA = {
           label: "Vehicle Makes",
           href: PATHS.vehicleMakes,
         },
+        {
+          label: "WMI",
+          href: PATHS.wmi,
+        },
       ],
     },
   ],
