@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { VehicleTypeFilter } from "@/components/molecules/VehicleTypeFilter";
 import { DataTable } from "@/components/ui/data-table";
 import {
   Sheet,
@@ -10,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useVehicleModels } from "@/hooks/query/useVehicleModels";
+import { VehicleType } from "@/types/vehicleMake";
 import { VehicleModelColumnId } from "@/types/vehicleModel";
 import { VehicleModelColumns } from "./VehicleModelColumns";
 
@@ -28,7 +31,11 @@ export function VehicleModelsSheet({
   open,
   onOpenChange,
 }: VehicleModelsSheetProps) {
-  const { data, isPending, isError, error } = useVehicleModels(makeId);
+  const [vehicleType, setVehicleType] = useState<VehicleType>(VehicleType.Car);
+  const { data, isPending, isError, error } = useVehicleModels({
+    makeId,
+    vehicleType,
+  });
   const tableData = data?.Results ?? EMPTY_ARRAY;
 
   return (
@@ -40,9 +47,13 @@ export function VehicleModelsSheet({
         <SheetHeader>
           <SheetTitle>Models — {makeName}</SheetTitle>
           <SheetDescription>Make ID: {makeId}</SheetDescription>
+          <VehicleTypeFilter
+            value={vehicleType}
+            onValueChange={setVehicleType}
+          />
         </SheetHeader>
 
-        <div className="mt-6 px-1">
+        <div className="px-6">
           {isPending && (
             <div className="space-y-2">
               {Array.from({ length: 8 }).map((_, i) => (

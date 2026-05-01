@@ -7,8 +7,8 @@ const makesUrl = (type: VehicleType) =>
   `${VPIC_BASE_URL}/GetMakesForVehicleType/${type}?format=json`;
 
 export const VehicleMakesService = {
-  async getMakes(): Promise<VehicleMakesResponse> {
-    const res = await fetch(makesUrl(VehicleType.Car));
+  async getMakes(type: VehicleType): Promise<VehicleMakesResponse> {
+    const res = await fetch(makesUrl(type));
     if (!res.ok) throw new Error(`API Error: ${res.status} ${res.statusText}`);
     return res.json() as Promise<VehicleMakesResponse>;
   },

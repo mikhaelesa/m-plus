@@ -5,7 +5,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useVehicleMakes } from "@/hooks/query/useVehicleMakes";
 import type { VehicleMake } from "@/types/vehicleMake";
-import { VehicleMakeColumnId } from "@/types/vehicleMake";
+import { VehicleMakeColumnId, VehicleType } from "@/types/vehicleMake";
 import { VehicleMakeColumns } from "./VehicleMakeColumns";
 import { VehicleMakesTableError } from "./VehicleMakesTableError";
 import { VehicleMakesToolbar } from "./VehicleMakesToolbar";
@@ -43,7 +43,11 @@ function TableSkeleton() {
 export function VehicleMakesTable() {
   const [triggerError, setTriggerError] = useState(false);
   const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
-  const { data, isPending, isError, error } = useVehicleMakes(triggerError);
+  const [vehicleType, setVehicleType] = useState<VehicleType>(VehicleType.Car);
+  const { data, isPending, isError, error } = useVehicleMakes(
+    vehicleType,
+    triggerError,
+  );
   const tableData = data?.Results ?? EMPTY_ARRAY;
 
   const handleViewModels = (make: VehicleMake) => setSelectedMake(make);
@@ -53,21 +57,12 @@ export function VehicleMakesTable() {
 
   if (isPending) return <TableSkeleton />;
 
-  if (isError || !data.Results.length) {
-    return (
-      <div className="space-y-4">
-        <VehicleMakesToolbar onTestError={() => setTriggerError(true)} />
-        <VehicleMakesTableError
-          error={error}
-          onReset={() => setTriggerError(false)}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-4">
-      <VehicleMakesToolbar onTestError={() => setTriggerError(true)} />
+      <VehicleMakesToolbar
+        vehicleType={vehicleType}
+        onTypeChange={setVehicleType}
+      />
       <DataTable
         columns={VehicleMakeColumns}
         data={tableData}
