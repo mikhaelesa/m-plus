@@ -4,3 +4,5 @@ export interface VpicApiResponse<T> {
   SearchCriteria: string;
   Results: T[];
 }
+
+export type VpicApiFormat = "json" | "csv";

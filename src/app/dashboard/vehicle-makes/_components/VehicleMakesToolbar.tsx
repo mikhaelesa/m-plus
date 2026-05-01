@@ -1,5 +1,7 @@
 "use client";
 
+import { Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -7,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { downloadCsv } from "@/lib/downloadCsv";
+import { VehicleMakesService } from "@/services/vehicleMakes";
 import {
   VEHICLE_TYPE_LABELS,
   VEHICLE_TYPE_OPTIONS,
@@ -22,6 +26,11 @@ export function VehicleMakesToolbar({
   vehicleType,
   onTypeChange,
 }: VehicleMakesToolbarProps) {
+  const handleDownload = () => {
+    const url = VehicleMakesService.getCsvUrl(vehicleType);
+    downloadCsv(url);
+  };
+
   return (
     <div className="flex max-md:flex-col md:items-center justify-between gap-2">
       <div className="space-y-0.5">
@@ -44,6 +53,10 @@ export function VehicleMakesToolbar({
             ))}
           </SelectContent>
         </Select>
+        <Button variant="outline" size="sm" onClick={handleDownload}>
+          <Download className="size-4" />
+          Download CSV
+        </Button>
       </div>
     </div>
   );

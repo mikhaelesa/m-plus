@@ -14,9 +14,9 @@ import {
 } from "@/types/vehicleMake";
 
 interface VehicleTypeFilterProps {
-  value:         VehicleType;
+  value: VehicleType;
   onValueChange: (type: VehicleType) => void;
-  className?:    string;
+  className?: string;
 }
 
 export function VehicleTypeFilter({
