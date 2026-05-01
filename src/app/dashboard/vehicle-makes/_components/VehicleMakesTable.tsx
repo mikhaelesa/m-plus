@@ -4,12 +4,13 @@ import { useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useVehicleMakes } from "@/hooks/query/useVehicleMakes";
-import { VehicleMakeColumnId } from "@/types/vpic";
+import type { VehicleMake } from "@/types/vehicleMake";
+import { VehicleMakeColumnId } from "@/types/vehicleMake";
 import { VehicleMakeColumns } from "./VehicleMakeColumns";
 import { VehicleMakesTableError } from "./VehicleMakesTableError";
 import { VehicleMakesToolbar } from "./VehicleMakesToolbar";
+import { VehicleModelsSheet } from "./VehicleModelsSheet";
 
-// RULE: Module-level constant — NEVER inline [] inside component body
 const EMPTY_ARRAY: never[] = [];
 
 function TableSkeleton() {
@@ -41,8 +42,14 @@ function TableSkeleton() {
 
 export function VehicleMakesTable() {
   const [triggerError, setTriggerError] = useState(false);
+  const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
   const { data, isPending, isError, error } = useVehicleMakes(triggerError);
   const tableData = data?.Results ?? EMPTY_ARRAY;
+
+  const handleViewModels = (make: VehicleMake) => setSelectedMake(make);
+  const handleSheetClose = (open: boolean) => {
+    if (!open) setSelectedMake(null);
+  };
 
   if (isPending) return <TableSkeleton />;
 
@@ -65,6 +72,13 @@ export function VehicleMakesTable() {
         columns={VehicleMakeColumns}
         data={tableData}
         filterColumnId={VehicleMakeColumnId.MakeName}
+        meta={{ onViewModels: handleViewModels }}
+      />
+      <VehicleModelsSheet
+        makeId={selectedMake?.MakeId ?? null}
+        makeName={selectedMake?.MakeName ?? ""}
+        open={!!selectedMake}
+        onOpenChange={handleSheetClose}
       />
     </div>
   );

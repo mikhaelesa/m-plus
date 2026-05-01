@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { VehicleMakesService } from "@/services/vehicleMakes";
-import { VehicleMakesQueryKey } from "@/types/vpic";
+import { VehicleMakesQueryKey } from "@/types/vehicleMake";
 
 const normalQueryOptions = {
   queryKey: [VehicleMakesQueryKey.VehicleMakes],

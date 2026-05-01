@@ -32,12 +32,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterColumnId?: string;
+  meta?: Record<string, unknown>;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filterColumnId,
+  meta,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>(INITIAL_SORTING);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
@@ -48,6 +50,7 @@ export function DataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
+    meta,
     state: { sorting, columnFilters, pagination },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
