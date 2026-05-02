@@ -21,6 +21,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { PATHS } from "@/constants/paths";
 import { loginAction } from "../_lib/action";
 import { type LoginDTO, loginSchema } from "../_lib/schema";
 
@@ -47,7 +48,7 @@ export const LoginForm = () => {
 
       if (result?.success) {
         toast.success("Login berhasil!");
-        router.push("/dashboard");
+        router.push(PATHS.dashboard);
       }
     });
   };

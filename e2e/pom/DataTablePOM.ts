@@ -29,7 +29,7 @@ export class DataTablePOM {
     const header = this.page.getByRole("columnheader", { name: columnName });
     await header.click();
     if (direction === "desc") {
-      await this.page.waitForTimeout(300); // Tunggu React re-render sebentar
+      await this.page.waitForTimeout(300);
       await header.click();
     }
   }

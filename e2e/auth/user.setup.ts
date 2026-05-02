@@ -1,8 +1,9 @@
+import { PATHS } from "@/constants/paths";
 import { USER_AUTH_FILE } from "../constants";
 import { expect, test as setup } from "../fixtures";
 
 setup("authenticate as user", async ({ page }) => {
-  await page.goto("/login");
+  await page.goto(PATHS.login);
 
   await page.getByLabel("Email").fill("user@mail.com");
   await page.getByLabel("Password").fill("password123");
