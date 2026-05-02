@@ -1,0 +1,21 @@
+{
+  "Count": 2,
+  "Message": "Results returned successfully",
+  "SearchCriteria": "Vehicle Type: car",
+  "Results": [
+    {
+      "WMI": "1A9",
+      "Name": "AC PROPULSION",
+      "Country": "USA",
+      "VehicleType": "Car",
+      "CreatedOn": "2015-01-01"
+    },
+    {
+      "WMI": "W08",
+      "Name": "ADAM OPEL",
+      "Country": "GERMANY",
+      "VehicleType": "Car",
+      "CreatedOn": "2015-01-01"
+    }
+  ]
+}

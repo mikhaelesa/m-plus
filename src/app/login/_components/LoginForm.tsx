@@ -68,9 +68,10 @@ export const LoginForm = () => {
               name="email"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel>Email</FieldLabel>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
                   <Input
                     {...field}
+                    id="email"
                     placeholder="Masukkan email Anda"
                     type="email"
                     autoComplete="off"
@@ -87,9 +88,10 @@ export const LoginForm = () => {
               name="password"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel>Password</FieldLabel>
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
                   <Input
                     {...field}
+                    id="password"
                     placeholder="Masukkan password Anda"
                     type="password"
                     autoComplete="off"

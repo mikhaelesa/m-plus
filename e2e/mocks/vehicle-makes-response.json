@@ -1,0 +1,19 @@
+{
+  "Count": 2,
+  "Message": "Results returned successfully",
+  "SearchCriteria": "Vehicle Type: car",
+  "Results": [
+    {
+      "MakeId": 440,
+      "MakeName": "ASTON MARTIN",
+      "VehicleTypeId": 2,
+      "VehicleTypeName": "Passenger Car"
+    },
+    {
+      "MakeId": 441,
+      "MakeName": "TESLA",
+      "VehicleTypeId": 2,
+      "VehicleTypeName": "Passenger Car"
+    }
+  ]
+}
