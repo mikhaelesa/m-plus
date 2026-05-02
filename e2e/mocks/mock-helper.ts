@@ -11,6 +11,7 @@ export async function applyVpicMocks(page: Page): Promise<void> {
     if (route.request().url().includes("format=csv")) {
       return route.fulfill({
         contentType: "text/csv",
+        headers: { "Content-Disposition": 'attachment; filename="wmi_export.csv"' },
         body: "WMI,Name,Country,VehicleType,CreatedOn\n1A9,AC PROPULSION,USA,Car,2015-01-01\nW08,ADAM OPEL,GERMANY,Car,2015-01-01",
       });
     }
@@ -22,6 +23,7 @@ export async function applyVpicMocks(page: Page): Promise<void> {
     if (route.request().url().includes("format=csv")) {
       return route.fulfill({
         contentType: "text/csv",
+        headers: { "Content-Disposition": 'attachment; filename="makes_export.csv"' },
         body: "MakeId,MakeName,VehicleTypeId,VehicleTypeName\n440,ASTON MARTIN,2,Passenger Car\n441,TESLA,2,Passenger Car",
       });
     }

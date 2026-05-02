@@ -8,7 +8,7 @@ export class DataTablePOM {
 
   constructor(private readonly page: Page) {
     this.table = page.getByRole("table");
-    this.searchInput = page.getByPlaceholder("Cari...");
+    this.searchInput = page.getByPlaceholder(/search/i);
     // All <tr> inside <tbody> — excludes header row
     this.rows = this.table.getByRole("row").filter({
       hasNot: page.getByRole("columnheader"),
@@ -36,7 +36,10 @@ export class DataTablePOM {
   ): Promise<void> {
     const header = this.page.getByRole("columnheader", { name: columnName });
     await header.click();
-    if (direction === "desc") await header.click();
+    if (direction === "desc") {
+      await this.page.waitForTimeout(300); // Tunggu React re-render sebentar
+      await header.click();
+    }
   }
 
   /** Clicks the Next page button. */
