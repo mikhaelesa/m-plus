@@ -19,7 +19,6 @@ export default defineConfig({
   },
 
   projects: [
-    // --- SETUP PROJECTS ---
     {
       name: "setup:admin",
       testMatch: /auth\/admin\.setup\.ts/,
@@ -28,11 +27,9 @@ export default defineConfig({
       name: "setup:user",
       testMatch: /auth\/user\.setup\.ts/,
     },
-
-    // --- TEST PROJECT (Hanya menggunakan WebKit) ---
     {
       name: "WebKit",
-      use: { ...devices["Desktop Safari"] }, // Menggunakan profile Safari/WebKit
+      use: { ...devices["Desktop Safari"] },
       dependencies: ["setup:admin", "setup:user"],
     },
   ],
