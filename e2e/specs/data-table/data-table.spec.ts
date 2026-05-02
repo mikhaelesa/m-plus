@@ -9,7 +9,7 @@ test.describe("Data Table & CSV Export Validation", () => {
     await page.goto(PATHS.wmi);
   });
 
-  test("halaman WMI harus memuat Data Table dan mengonsumsi Mock Data dengan benar", async ({
+  test("WMI page should load Data Table and consume Mock Data correctly", async ({
     dataTable,
   }) => {
     await dataTable.expectLoaded();
@@ -17,7 +17,7 @@ test.describe("Data Table & CSV Export Validation", () => {
     await dataTable.expectRowCount(2);
   });
 
-  test("interaksi Search dan Sort berfungsi reaktif dan stabil tanpa flaky", async ({
+  test("Search and Sort interactions function reactively and stably without flakiness", async ({
     dataTable,
   }) => {
     await dataTable.expectLoaded();
@@ -38,7 +38,7 @@ test.describe("Data Table & CSV Export Validation", () => {
     await dataTable.expectRowCount(2);
   });
 
-  test("unduhan CSV terintersepsi oleh mock dan berhasil ditangani Playwright", async ({
+  test("CSV download is intercepted by mock and successfully handled by Playwright", async ({
     page,
   }) => {
     const downloadCsvBtn = page.getByRole("button", { name: "Download CSV" });

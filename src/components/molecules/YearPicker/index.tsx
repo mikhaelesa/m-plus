@@ -48,15 +48,15 @@ export function YearPicker({ selectedYear, onYearChange }: YearPickerProps) {
           {selectedYear
             ? YEAR_OPTIONS.find((option) => option.value === selectedYear)
                 ?.label
-            : "Cari Tahun..."}
+            : "Search Year..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Ketik tahun..." />
+          <CommandInput placeholder="Type a year..." />
           <CommandList>
-            <CommandEmpty>Tahun tidak ditemukan.</CommandEmpty>
+            <CommandEmpty>Year not found.</CommandEmpty>
             <CommandGroup>
               {YEAR_OPTIONS.map((year) => (
                 <CommandItem

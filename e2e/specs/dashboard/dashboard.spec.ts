@@ -9,7 +9,7 @@ test.describe("Dashboard - Regular User", () => {
     await page.goto(PATHS.dashboard);
   });
 
-  test("harus menampilkan stat cards dengan angka mock yang akurat", async ({
+  test("should display stat cards with accurate mock numbers", async ({
     page,
   }) => {
     await expect(page.locator(".text-2xl").first()).toContainText(/\d+/);
@@ -17,11 +17,11 @@ test.describe("Dashboard - Regular User", () => {
     await expect(page.locator(".text-2xl").nth(1)).toContainText(/\d+/);
   });
 
-  test("tombol 'Lihat Selengkapnya' diblokir oleh RoleGuard (tidak di DOM)", async ({
+  test("'View More' button is blocked by RoleGuard (not in DOM)", async ({
     page,
   }) => {
     await expect(
-      page.getByRole("link", { name: "Lihat Selengkapnya" }),
+      page.getByRole("link", { name: "View More" }),
     ).toHaveCount(0);
   });
 });
@@ -33,25 +33,25 @@ test.describe("Dashboard - Admin", () => {
     await page.goto(PATHS.dashboard);
   });
 
-  test("tombol 'Lihat Selengkapnya' dapat dilihat dan digunakan oleh Admin", async ({
+  test("'View More' button can be viewed and used by Admin", async ({
     page,
   }) => {
-    const lihatSelengkapnyaBtns = page.getByRole("link", {
-      name: "Lihat Selengkapnya",
+    const viewMoreBtns = page.getByRole("link", {
+      name: "View More",
     });
 
-    await expect(lihatSelengkapnyaBtns).toHaveCount(2);
+    await expect(viewMoreBtns).toHaveCount(2);
 
-    await lihatSelengkapnyaBtns.first().click();
+    await viewMoreBtns.first().click();
     await expect(page).toHaveURL(/.*\/wmi/);
 
     await page.goto(PATHS.dashboard);
 
-    await lihatSelengkapnyaBtns.nth(1).click();
+    await viewMoreBtns.nth(1).click();
     await expect(page).toHaveURL(/.*\/vehicle-makes/);
   });
 
-  test("Manufacturing Chart merespons perubahan filter tipe kendaraan", async ({
+  test("Manufacturing Chart responds to vehicle type filter changes", async ({
     page,
   }) => {
     const pieChartSvg = page.locator(".recharts-pie");

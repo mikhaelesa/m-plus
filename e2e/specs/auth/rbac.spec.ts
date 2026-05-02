@@ -5,14 +5,14 @@ import { expect, test } from "../../fixtures";
 test.describe("Unauthenticated Access", () => {
   test.use({ storageState: { cookies: [], origins: [] } });
 
-  test("harus redirect ke login jika mengakses rute terproteksi (/dashboard)", async ({
+  test("should redirect to login when accessing protected route (/dashboard)", async ({
     page,
   }) => {
     await page.goto(PATHS.dashboard);
     await expect(page).toHaveURL(/.*\/login/);
   });
 
-  test("harus redirect ke login jika mencoba mengakses rute admin secara langsung (/wmi)", async ({
+  test("should redirect to login when attempting to access admin route directly (/wmi)", async ({
     page,
   }) => {
     await page.goto(PATHS.wmi);
@@ -23,7 +23,7 @@ test.describe("Unauthenticated Access", () => {
 test.describe("Regular User Access", () => {
   test.use({ storageState: USER_AUTH_FILE });
 
-  test("dapat mengakses dashboard tetapi menu admin tidak ada di DOM", async ({
+  test("can access dashboard but admin menu is not in DOM", async ({
     page,
   }) => {
     await page.goto(PATHS.dashboard);
@@ -38,7 +38,7 @@ test.describe("Regular User Access", () => {
     await expect(page.getByRole("link", { name: "WMI" })).not.toBeAttached();
   });
 
-  test("harus redirect ke dashboard jika memaksa akses URL admin", async ({
+  test("should redirect to dashboard when forcing access to admin URL", async ({
     page,
   }) => {
     await page.goto(PATHS.wmi);
@@ -50,7 +50,7 @@ test.describe("Regular User Access", () => {
 test.describe("Admin Access", () => {
   test.use({ storageState: ADMIN_AUTH_FILE });
 
-  test("dapat melihat dan mengakses menu eksklusif admin", async ({
+  test("can view and access admin exclusive menu", async ({
     page,
     dataTable,
   }) => {
@@ -76,7 +76,7 @@ test.describe("Admin Access", () => {
 test.describe("Logout Flow", () => {
   test.use({ storageState: USER_AUTH_FILE });
 
-  test("harus membersihkan sesi dan mencegah akses kembali", async ({
+  test("should clear session and prevent re-access", async ({
     page,
   }) => {
     await page.goto(PATHS.dashboard);

@@ -47,7 +47,7 @@ export const LoginForm = () => {
       }
 
       if (result?.success) {
-        toast.success("Login berhasil!");
+        toast.success("Login successful!");
         router.push(PATHS.dashboard);
       }
     });
@@ -58,7 +58,7 @@ export const LoginForm = () => {
       <CardHeader>
         <CardTitle>Login</CardTitle>
         <CardDescription>
-          Silahkan masukkan email dan password Anda untuk login
+          Please enter your email and password to login
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -73,7 +73,7 @@ export const LoginForm = () => {
                   <Input
                     {...field}
                     id="email"
-                    placeholder="Masukkan email Anda"
+                    placeholder="Enter your email"
                     type="email"
                     autoComplete="off"
                     aria-invalid={fieldState.invalid}
@@ -93,7 +93,7 @@ export const LoginForm = () => {
                   <Input
                     {...field}
                     id="password"
-                    placeholder="Masukkan password Anda"
+                    placeholder="Enter your password"
                     type="password"
                     autoComplete="off"
                     aria-invalid={fieldState.invalid}

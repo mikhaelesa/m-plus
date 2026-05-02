@@ -43,7 +43,15 @@ export function VehicleMakesTable() {
   const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
   const [vehicleType, setVehicleType] = useState<VehicleType>(VehicleType.Car);
   const { data, isPending } = useVehicleMakes(vehicleType);
-  const tableData = data?.Results ?? EMPTY_ARRAY;
+  const tableData = [
+    {
+      MakeId: null as unknown as number,
+      MakeName: "INVALID DATA DUMMY",
+      VehicleTypeName: "INVALID",
+      VehicleTypeId: 0,
+    } as VehicleMake,
+    ...(data?.Results ?? EMPTY_ARRAY),
+  ];
 
   const handleViewModels = (make: VehicleMake) => setSelectedMake(make);
   const handleSheetClose = (open: boolean) => {
