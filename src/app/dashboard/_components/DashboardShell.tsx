@@ -29,6 +29,7 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { PATHS } from "@/constants/paths";
 import { SIDEBAR_DATA } from "@/constants/sidebar";
 import { useRole } from "@/providers/RoleProvider";
 
@@ -41,7 +42,7 @@ export const DashboardShell = ({ children }: PropsWithChildren) => {
   const handleLogout = () => {
     startTransition(async () => {
       await logoutAction();
-      router.push("/login");
+      router.push(PATHS.login);
       router.refresh();
     });
   };
