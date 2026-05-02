@@ -3,14 +3,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import { type PropsWithChildren, useTransition } from "react";
 import { logoutAction } from "@/app/dashboard/_lib/action";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { NavbarBreadcrumb } from "@/components/molecules/NavbarBreadcrumb";
+import { ToggleTheme } from "@/components/molecules/ToggleTheme";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -111,17 +105,10 @@ export const DashboardShell = ({ children }: PropsWithChildren) => {
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">Overview</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Dashboard</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <div className="flex justify-between items-center w-full">
+            <NavbarBreadcrumb pathname={pathname} />
+            <ToggleTheme />
+          </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
       </SidebarInset>
