@@ -29,9 +29,9 @@ export function VehicleTypeChart() {
   return (
     <Card className="flex flex-col">
       <CardHeader>
-        <CardTitle>Komparasi Tipe Kendaraan</CardTitle>
+        <CardTitle>Vehicle Type Comparison</CardTitle>
         <CardDescription>
-          Jumlah merek terdaftar berdasarkan kategori
+          Number of registered brands by category
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1">
@@ -39,7 +39,7 @@ export function VehicleTypeChart() {
           <Skeleton className="h-[300px] w-full" />
         ) : isError ? (
           <div className="flex h-[300px] items-center justify-center text-sm text-muted-foreground">
-            Gagal memuat data komparasi.
+            Failed to load comparison data.
           </div>
         ) : (
           <ChartContainer config={chartConfig} className="max-h-[300px] w-full">
@@ -69,7 +69,7 @@ export function VehicleTypeChart() {
       <CardFooter>
         <RoleGuard allowedRoles={[UserRole.ADMIN]}>
           <Link href={PATHS.vehicleMakes}>
-            <Button variant="outline">Lihat Selengkapnya</Button>
+            <Button variant="outline">View More</Button>
           </Link>
         </RoleGuard>
       </CardFooter>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Label, Pie, PieChart } from "recharts";
 import { useWmiDistribution } from "@/app/dashboard/_hooks/useWmiDistribution";
+import { RoleGuard } from "@/components/molecules/RoleGuard";
 import { VehicleTypeFilter } from "@/components/molecules/VehicleTypeFilter";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,9 +22,8 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PATHS } from "@/constants/paths";
-import { VehicleType } from "@/types/vehicleMake";
-import { RoleGuard } from "@/components/molecules/RoleGuard";
 import { UserRole } from "@/types/auth";
+import { VehicleType } from "@/types/vehicleMake";
 
 export function ManufacturingChart() {
   const [vehicleType, setVehicleType] = useState<VehicleType>(VehicleType.Car);
@@ -33,9 +33,9 @@ export function ManufacturingChart() {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Distribusi Manufaktur</CardTitle>
+        <CardTitle>Manufacturer Distribution</CardTitle>
         <CardDescription>
-          Berdasarkan negara asal dan tipe kendaraan
+          Based on country of origin and vehicle type
         </CardDescription>
       </CardHeader>
 
@@ -114,7 +114,7 @@ export function ManufacturingChart() {
           </div>
           <RoleGuard allowedRoles={[UserRole.ADMIN]}>
             <Link className="self-start" href={PATHS.wmi}>
-              <Button variant="outline">Lihat Selengkapnya</Button>
+              <Button variant="outline">View More</Button>
             </Link>
           </RoleGuard>
         </CardFooter>

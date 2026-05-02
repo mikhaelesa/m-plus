@@ -32,6 +32,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   filterColumnId?: string;
   meta?: Record<string, unknown>;
+  withSearchbar?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -39,6 +40,7 @@ export function DataTable<TData, TValue>({
   data,
   filterColumnId,
   meta,
+  withSearchbar = true,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>(INITIAL_SORTING);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
@@ -62,7 +64,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      {filterColumnId && (
+      {withSearchbar && filterColumnId && (
         <Input
           placeholder="Search brand name..."
           value={

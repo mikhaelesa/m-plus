@@ -10,13 +10,13 @@ export type LoginDTO = z.infer<typeof loginSchema>;
 
 export async function loginAction(data: LoginDTO) {
   const parsed = loginSchema.safeParse(data);
-  if (!parsed.success) return { error: "Data yang dikirim tidak valid" };
+  if (!parsed.success) return { error: "Invalid request data" };
 
   const { email, password } = parsed.data;
 
   const user = USERS.find((u) => u.email === email);
   if (!user || user.password !== password)
-    return { error: "Email atau password salah" };
+    return { error: "Invalid email or password" };
 
   const token = await AuthService.generateToken({
     id: user.id,

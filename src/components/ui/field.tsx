@@ -74,7 +74,7 @@ function Field({
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: <Menggunakan div karena masalah rendering fieldset pada flex/grid layout>
+    // biome-ignore lint/a11y/useSemanticElements: <Using div due to fieldset rendering issues in flex/grid layouts>
     <div
       role="group"
       data-slot="field"
