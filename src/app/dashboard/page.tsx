@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/molecules/PageHeader";
+
 import { DashboardStats } from "./_components/DashboardStats";
 import { ManufacturingChart } from "./_components/ManufacturingChart";
 import { VehicleTypeChart } from "./_components/VehicleTypeChart";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Real-time automotive statistics and manufacturer distribution.",
+};
+
 
 export default async function DashboardPage() {
   return (
