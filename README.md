@@ -58,6 +58,7 @@ cp .env.example .env
 **Required Keys:**
 - `JWT_SECRET`: A cryptographic secret key used to sign and verify JSON Web Tokens for the authentication system. (You can easily generate one securely using [JWT Secret Key Generator](https://jwtsecretkeygenerator.com/)).
 - `NEXT_PUBLIC_VPIC_BASE_URL`: The base URL for the NHTSA vPIC API (e.g., `https://vpic.nhtsa.dot.gov/api/vehicles`).
+- `BASE_URL`: The public URL of the application (e.g., `http://localhost:3000`). This is used to generate absolute URLs for SEO metadata, OpenGraph tags, `robots.txt`, and `sitemap.xml`.
 
 ### Running Locally
 
