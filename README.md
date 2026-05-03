@@ -69,6 +69,15 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Dummy Credentials
+
+To explore the dashboard and test the RBAC system, you can use the following pre-configured credentials (defined in [src/constants/users.ts](src/constants/users.ts)):
+
+#### Role-Based Access Control (RBAC)
+The application implements a strict RBAC system. Depending on the user's role, the UI and accessible features will vary:
+- **Admin**: Has full access to all dashboard sections, including sensitive Manufacturer and WMI (World Manufacturer Identifier) data.
+- **User**: Restricted to general dashboard analytics and visualizations; navigation and data tables for specific manufacturer details are hidden or restricted.
+
 ## Architecture & Structure
 
 The project strictly follows a feature-driven architecture within the Next.js App Router paradigm.
