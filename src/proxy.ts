@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const payload = token ? await AuthService.verifyToken(token) : null;
 
-  if (!payload && pathname !== PATHS.login)
+  if (!payload && pathname !== PATHS.login && pathname !== PATHS.landingPage)
     return NextResponse.redirect(new URL(PATHS.login, request.url));
 
   if (payload && pathname.startsWith(PATHS.login))
