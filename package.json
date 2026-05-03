@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",
+    "@icons-pack/react-simple-icons": "^13.13.0",
     "@phosphor-icons/react": "^2.1.10",
+    "@radix-ui/react-slot": "1.2.4",
     "@tanstack/react-query": "5.80.2",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
