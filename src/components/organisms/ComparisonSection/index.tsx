@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PATHS } from "@/constants/paths";
+import { useGSAPAnimation } from "./useGSAPAnimation";
 
 type ComparisonRow = {
   feature: string;
@@ -31,14 +32,24 @@ const COMPARISON_ROWS: ComparisonRow[] = [
 ];
 
 export function ComparisonSection() {
+  const { containerRef } = useGSAPAnimation();
+
   return (
-    <section id="features" className="bg-background section-padding-y">
+    <section
+      id="features"
+      ref={containerRef}
+      className="bg-background section-padding-y overflow-hidden"
+    >
       <div className="container-padding-x mx-auto flex max-w-6xl flex-col gap-8 md:gap-12">
         {/* Title block */}
         <div className="section-title-gap-lg mx-auto flex flex-col items-center text-center md:max-w-xl">
-          <Tagline>Why M+</Tagline>
-          <h2 className="heading-lg text-foreground">M+ vs. The Rest</h2>
-          <p className="text-muted-foreground text-base">
+          <div className="comp-tagline">
+            <Tagline>Why M+</Tagline>
+          </div>
+          <h2 id="comp-heading" className="heading-lg text-foreground">
+            M+ vs. The Rest
+          </h2>
+          <p id="comp-desc" className="text-muted-foreground text-base">
             Not all automotive analytics platforms are equal. See how M+
             Software delivers a complete vPIC intelligence suite that
             competitors simply can&apos;t match.
@@ -50,7 +61,7 @@ export function ComparisonSection() {
         <div className="hidden overflow-x-auto md:block">
           <div className="">
             <Table>
-              <TableHeader>
+              <TableHeader className="comp-table-header">
                 <TableRow className="h-14">
                   <TableHead className="w-[40%]"></TableHead>
                   <TableHead className="w-[30%]">
@@ -67,7 +78,7 @@ export function ComparisonSection() {
               </TableHeader>
               <TableBody>
                 {COMPARISON_ROWS.map((row, idx) => (
-                  <TableRow key={String(idx)} className="h-14">
+                  <TableRow key={String(idx)} className="comp-row-desktop h-14">
                     <TableCell className="text-base font-medium">
                       {row.feature}
                     </TableCell>
@@ -114,7 +125,7 @@ export function ComparisonSection() {
 
         {/* Mobile (< md) stacked rows */}
         <div className="md:hidden">
-          <div className="mb-4 grid grid-cols-2 text-sm font-medium">
+          <div className="comp-table-header mb-4 grid grid-cols-2 text-sm font-medium">
             <div className="relative flex items-center justify-center py-2">
               <div className="bg-muted/50 absolute inset-0 -z-10" />
               <Logo />
@@ -126,7 +137,10 @@ export function ComparisonSection() {
 
           <div className="space-y-3">
             {COMPARISON_ROWS.map((row, idx) => (
-              <div key={String(idx)} className="rounded-md border">
+              <div
+                key={String(idx)}
+                className="comp-card-mobile rounded-md border"
+              >
                 <div className="px-4 py-3 text-sm font-medium">
                   {row.feature}
                 </div>
@@ -167,7 +181,7 @@ export function ComparisonSection() {
         </div>
 
         {/* CTA */}
-        <div className="flex items-center justify-center gap-4">
+        <div className="comp-cta flex items-center justify-center gap-4">
           <Button asChild>
             <Link href={PATHS.dashboard}>Get started</Link>
           </Button>
