@@ -24,7 +24,10 @@ export function useVehicleTypeDistribution() {
 
   const { chartData, chartConfig } = useMemo(() => {
     if (isPending)
-      return { chartData: [], chartConfig: { count: { label: "Merek" } } as ChartConfig };
+      return {
+        chartData: [],
+        chartConfig: { count: { label: "Makes" } } as ChartConfig,
+      };
 
     const points: VehicleTypeDataPoint[] = VEHICLE_TYPE_OPTIONS.map(
       (type, i) => ({
@@ -37,7 +40,7 @@ export function useVehicleTypeDistribution() {
 
     points.sort((a, b) => b.count - a.count);
 
-    const config: ChartConfig = { count: { label: "Merek" } };
+    const config: ChartConfig = { count: { label: "Makes" } };
     points.forEach((point, index) => {
       config[point.typeKey] = {
         label: point.typeName,

@@ -14,7 +14,7 @@ export default async function DashboardPage() {
     <div className="space-y-6">
       <PageHeader
         title="Dashboard Overview"
-        description="Ringkasan data otomotif global dari vPIC Dataset."
+        description="Global automotive data insights from vPIC Dataset."
       />
       <DashboardStats
         totalMakes={totalMakes}
