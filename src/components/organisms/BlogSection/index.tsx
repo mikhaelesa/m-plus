@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Tagline } from "@/components/molecules/Tagline";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useGSAPAnimation } from "./useGSAPAnimation";
 
 interface BlogPost {
   id: number;
@@ -58,26 +59,32 @@ const BLOG_POSTS: BlogPost[] = [
 ];
 
 export function BlogSection() {
+  const { containerRef } = useGSAPAnimation();
+
   return (
     <section
       id="insights"
-      className="bg-background section-padding-y"
-      aria-labelledby="blog-section-heading"
+      ref={containerRef}
+      className="bg-background section-padding-y overflow-hidden"
+      aria-labelledby="blog-heading"
     >
       <div className="container-padding-x container mx-auto gap-10 md:gap-12">
         <div className="flex flex-col items-center gap-10 md:gap-12">
           {/* Section Title */}
           <div className="section-title-gap-lg mx-auto flex max-w-xl flex-col items-center text-center">
-            {/* Tagline */}
-            <Tagline>Insights</Tagline>
-            {/* Main Heading */}
-            <h1 id="blog-section-heading" className="heading-lg">
+            <div className="blog-tagline">
+              <Tagline>Insights</Tagline>
+            </div>
+
+            {/* Mengganti id untuk SplitText */}
+            <h2 id="blog-heading" className="heading-lg">
               Automotive Intelligence &amp; Trends
-            </h1>
-            {/* Description */}
-            <p className="text-muted-foreground">
+            </h2>
+
+            <p id="blog-desc" className="text-muted-foreground">
               Stay updated with the latest trends in global vehicle
-              manufacturing and data analytics straight from our team of experts.
+              manufacturing and data analytics straight from our team of
+              experts.
             </p>
           </div>
 
@@ -87,7 +94,7 @@ export function BlogSection() {
             role="list"
           >
             {BLOG_POSTS.map((post) => (
-              <Link href="#" key={post.id} className="group block">
+              <Link href="#" key={post.id} className="blog-card group block">
                 {/* Blog Card */}
                 <div className="flex flex-col gap-4 rounded-xl transition-all duration-200">
                   {/* Image Wrapper */}
@@ -99,7 +106,7 @@ export function BlogSection() {
                       src={post.image}
                       alt={`${post.title} thumbnail`}
                       fill
-                      className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                      className="blog-image h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </AspectRatio>
 
